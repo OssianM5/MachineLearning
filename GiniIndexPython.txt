@@ -1,0 +1,25 @@
+import pandas as pd
+import warnings
+import numpy as np
+
+
+def gini_index(labels):
+    unique_labels, label_counts = np.unique(labels,return_counts=True)
+    probabilities = label_counts / len(labels)
+    gini_value = np.sum(probabilities**2)
+    return gini_value
+
+
+# Suppress warnings
+warnings.simplefilter("ignore")
+
+# Read the data from the Excel file
+df = pd.read_excel('DataBase.xlsx')
+
+# Restore default warning behavior
+warnings.resetwarnings()
+
+# Iterate over each column in the DataFrame
+for label in df[:-1]:
+    print("gini ", label, gini_index(df[label]))
+    
